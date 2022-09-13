@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 
 class GlobalStore {
   constructor() {
-    makeAutoObservable(this, {}, { autoBind: true });
+    makeAutoObservable(this);
   }
 
   todos = [
@@ -10,7 +10,7 @@ class GlobalStore {
     { id: 2, text: "Write a post", completed: false }
   ];
 
-  toggleTodo(index) {
+  toggleTodo = (index) => {
     console.log(this);
     // runInAction(() => {
     //   console.log("in", this);
