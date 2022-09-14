@@ -5,23 +5,58 @@ import Footer from "./components/Footer";
 import store from "./store";
 // import GlobalStore from "./store";
 
-import { useFoo } from "./hooks";
+import { useBar, useFoo } from "./hooks";
+import { autorun, toJS } from 'mobx';
+import TimerView from './components/TimerView';
+import React from 'react';
 
 // const store = new GlobalStore();
 
-function App() {
+const Foo = observer(() => {
 
-  // const hooksResult = useFoo(store.todos, 1);
+  const { todos, toggleTodo, remainingTodos, timer, reset, resetTodos } = store
+  // const { data } = useBar(timer)
 
-  // console.log({ store }, "-");
+  // const hooksResult = useFoo(timer,1);
+
+  // console.log({ store, hooksResult,t:toJS(todos) }, "-");
+  React.useEffect(() => {
+    console.log('useFoo=>React.useEffect', );
+
+    autorun(() => {
+      console.log('autorun-------', );
+      todos.forEach((todo) => {
+        console.log('autorun', todo);
+      })
+    })
+  }, [todos])
 
   return (
     <div className="App">
-      <h2>A Todo App yet again!</h2>
-      <TodoList todos={store.todos} toggleTodo={store.toggleTodo} />
-      <Footer remaining={store.remainingTodos} total={store.todos.length} />
+      {/* <h1>name:{data}</h1> */}
+      <h2>timer:{timer}</h2>
+      <h3>A Todo App yet again!</h3>
+      <TodoList todos={todos} toggleTodo={toggleTodo} />
+      <Footer remaining={remainingTodos} total={todos.length} />
+      <button onClick={reset}>reset</button>
+      <button onClick={resetTodos}>resetTodos</button>
+
     </div>
+  );
+})
+
+function App() {
+  // const hooksResult = useFoo(1,1);
+
+  // console.log('App render', hooksResult);
+
+  return (
+    <>
+      <Foo />
+      {/* <TimerView /> */}
+    </>
   );
 }
 
-export default observer(App)
+
+export default (App)

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "ahooks": "^3.7.1",
     "mobx": "^6.6.2",
     "mobx-react-lite": "^3.4.0",
     "react": "^17.0.2",
